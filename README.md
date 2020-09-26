@@ -67,5 +67,5 @@ Model-View-ViewModel (MVVM)
 
 #### Project
 1. Download and open the project in Android Studio
-2. Edit the file local.properties with the API key where tmdb_api_key="YOUR_KEY"
+2. Edit the file local.properties and add the line: tmdb_api_key="YOUR_KEY"
 3. Connect your Android phone or use the emulator to start the application
