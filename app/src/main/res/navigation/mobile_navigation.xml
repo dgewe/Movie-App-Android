@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.fredrikbogg.movie_app.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_showAllFragment"
+            app:destination="@id/showAllFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_movies"
+        android:name="com.fredrikbogg.movie_app.ui.movies.MoviesFragment"
+        android:label="@string/title_movies"
+        tools:layout="@layout/fragment_movies">
+        <action
+            android:id="@+id/action_navigation_movies_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_tv_shows"
+        android:name="com.fredrikbogg.movie_app.ui.tv_shows.TvShowsFragment"
+        android:label="@string/title_tv_shows"
+        tools:layout="@layout/fragment_tv_shows">
+        <action
+            android:id="@+id/action_navigation_tv_shows_to_TVShowDetailsFragment"
+            app:destination="@id/tvShowDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showAllFragment"
+        android:name="com.fredrikbogg.movie_app.ui.show_all.ShowAllFragment"
+        android:label="{movieListTypeArg}"
+        tools:layout="@layout/fragment_show_all">
+        <argument
+            android:name="movieListTypeArg"
+            app:argType="com.fredrikbogg.movie_app.data.model.MovieListType" />
+        <action
+            android:id="@+id/action_showAllFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.fredrikbogg.movie_app.ui.movie_details.MovieDetailsFragment"
+        android:label="{movieTitleArg}"
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="movieIdArg"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitleArg"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowDetailsFragment"
+        android:name="com.fredrikbogg.movie_app.ui.tv_show_details.TvShowDetailsFragment"
+        android:label="{tvShowTitleArg}"
+        tools:layout="@layout/fragment_tv_show_details">
+        <argument
+            android:name="tvShowIdArg"
+            app:argType="integer" />
+        <argument
+            android:name="tvShowTitleArg"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tvShowDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personDetailsFragment"
+        android:name="com.fredrikbogg.movie_app.ui.person_details.PersonDetailsFragment"
+        android:label="{personNameArg}"
+        tools:layout="@layout/fragment_person_details">
+        <argument
+            android:name="personIdArg"
+            app:argType="integer" />
+        <argument
+            android:name="personNameArg"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_personDetailsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_personDetailsFragment_to_tvShowDetailsFragment"
+            app:destination="@id/tvShowDetailsFragment" />
+    </fragment>
+
+</navigation>

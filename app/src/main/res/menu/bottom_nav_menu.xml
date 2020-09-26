@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_movies"
+        android:icon="@drawable/ic_baseline_movie_24"
+        android:title="@string/title_movies" />
+
+    <item
+        android:id="@+id/navigation_tv_shows"
+        android:icon="@drawable/ic_baseline_tv_24"
+        android:title="@string/title_tv_shows" />
+</menu>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.fredrikbogg.movie_app.data.model.MovieListType" />
+
+        <variable
+            name="viewmodel"
+            type="com.fredrikbogg.movie_app.ui.show_all.ShowAllViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/showAllRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            app:bind_load_more="@{viewmodel::loadMoreMovies}"
+            app:bind_movie_list="@{viewmodel.movieList}"
+            app:bind_view_model="@{viewmodel}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="@integer/recyclerview_span_count"
+            tools:listitem="@layout/list_item_movie_grid" />
+
+
+        <ProgressBar
+            android:id="@+id/moviesProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:visibility="gone"
+            app:bind_visibility_null_list="@{viewmodel.movieList}"
+            app:layout_constraintBottom_toBottomOf="@id/showAllRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/showAllRecyclerView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/showAllRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/showAllRecyclerView"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

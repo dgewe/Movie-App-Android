@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.fredrikbogg.movie_app.ui.person_details.PersonDetailsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginRight="@dimen/content_margin"
+        android:orientation="vertical"
+        android:visibility="@{viewmodel.person != null ? View.VISIBLE : View.INVISIBLE}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/userImageCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:visibility="@{viewmodel.person.profilePath != null ? View.VISIBLE : View.INVISIBLE}"
+                app:cardCornerRadius="87.5dp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:layout_margin="0dp"
+                    android:contentDescription="@string/person_image"
+                    android:scaleType="centerCrop"
+                    app:bind_profile_path_no_fit="@{viewmodel.person.profilePath}"
+                    tools:src="@tools:sample/avatars[0]" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/nameText"
+            style="@style/TitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@{viewmodel.person.name}"
+            android:textSize="36sp"
+            tools:text="Name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.person.knownForDepartment}"
+            android:textSize="14sp"
+            tools:text="Acting" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/NunitoSemiBoldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/biography"
+                        android:textSize="18sp"
+                        app:bind_visibility_hide_empty_string="@{viewmodel.person.biography}" />
+
+                    <TextView
+                        android:id="@+id/biographyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:alpha=".7"
+                        android:text="@{viewmodel.person.biography}"
+                        tools:text="Text" />
+
+                    <TextView
+                        style="@style/NunitoSemiBoldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/photos"
+                        android:textSize="18sp"
+                        app:bind_visibility_hide_empty_list="@{viewmodel.imageList}" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/photosRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:bind_image_list="@{viewmodel.imageList}"
+                        app:bind_view_model="@{viewmodel}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/list_item_cast" />
+
+                    <TextView
+                        style="@style/NunitoSemiBoldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/known_for"
+                        android:textSize="18sp"
+                        app:bind_visibility_hide_empty_list="@{viewmodel.creditList}" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/knownForRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:bind_credits_list="@{viewmodel.creditList}"
+                        app:bind_view_model="@{viewmodel}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/list_item_credit" />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

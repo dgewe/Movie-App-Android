@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.fredrikbogg.movie_app.data.model.MovieListType" />
+
+        <variable
+            name="goToInterface"
+            type="com.fredrikbogg.movie_app.data.model.GoToMovie" />
+
+        <variable
+            name="viewmodel"
+            type="com.fredrikbogg.movie_app.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hlMovieImageLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/topGuideline"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/hlMovieImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:contentDescription="@string/highlighted_movie_image"
+                android:onClick="@{() -> viewmodel.goTo(viewmodel.highlightedMovie)}"
+                app:bind_backdrop_path_loading_highlighted_movie="@{viewmodel.highlightedMovie}"
+                app:bind_progress="@{highlighedMovieProgressBar}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic[1]" />
+
+            <ProgressBar
+                android:id="@+id/highlighedMovieProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="@dimen/progress_bar_size"
+                android:layout_height="@dimen/progress_bar_size"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/hlMovieImage"
+                app:layout_constraintEnd_toEndOf="@id/hlMovieImage"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/hlMovieImage"
+                app:layout_constraintTop_toTopOf="@id/hlMovieImage"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/fadeView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/shape_gradient"
+                app:layout_constraintBottom_toBottomOf="@id/hlMovieImage" />
+
+            <TextView
+                android:id="@+id/hlMovieTitle"
+                style="@style/TitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginEnd="@dimen/content_margin"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{viewmodel.highlightedMovie.title}"
+                android:textSize="46sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="Title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hlMovieInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/content_margin"
+            android:visibility="@{viewmodel.highlightedMovie != null ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topGuideline"
+            tools:visibility="visible">
+
+            <RatingBar
+                android:id="@+id/hlRatingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize=".5"
+                android:theme="@style/RatingBarTheme"
+                app:bind_rating_bar="@{viewmodel.highlightedMovie}"
+                app:bind_rating_stars="@{5}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:rating="4" />
+
+            <TextView
+                android:id="@+id/hlNumOfVotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewmodel.highlightedMovie.voteCount + ` votes`}"
+                app:layout_constraintBottom_toBottomOf="@+id/hlRatingBar"
+                app:layout_constraintStart_toEndOf="@+id/hlRatingBar"
+                app:layout_constraintTop_toTopOf="@id/hlRatingBar"
+                tools:text="189 votes" />
+
+            <TextView
+                android:id="@+id/hlMovieGenrePrimary"
+                style="@style/NunitoSemiBoldStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_rounded_rectangle"
+                android:backgroundTint="@color/colorAccent"
+                android:minWidth="100dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:text="@{viewmodel.highlightedMovieGenreOne.name}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:visibility="@{viewmodel.highlightedMovieGenreOne != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hlRatingBar"
+                tools:text="Thriller"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/hlMovieGenreSecondary"
+                style="@style/NunitoSemiBoldStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_rounded_rectangle_stroke_only"
+                android:minWidth="100dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:text="@{viewmodel.highlightedMovieGenreTwo.name}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:visibility="@{viewmodel.highlightedMovieGenreTwo != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintLeft_toRightOf="@id/hlMovieGenrePrimary"
+                app:layout_constraintTop_toBottomOf="@id/hlRatingBar"
+                tools:text="War"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/moviesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="@dimen/content_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hlMovieInfoLayout">
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/popularLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="150dp"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:id="@+id/popularText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/popular"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/showAllPopularText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="@{() -> viewmodel.goToShowAllPressed(MovieListType.POPULAR)}"
+                            android:text="@string/show_all"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@id/popularText"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <ProgressBar
+                            android:id="@+id/popularProgressBar"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="@dimen/progress_bar_size"
+                            android:layout_height="@dimen/progress_bar_size"
+                            android:visibility="gone"
+                            app:bind_visibility_null_list="@{viewmodel.popularMovieList}"
+                            app:layout_constraintBottom_toBottomOf="@id/popularRecyclerView"
+                            app:layout_constraintEnd_toEndOf="@id/popularRecyclerView"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@id/popularRecyclerView"
+                            app:layout_constraintTop_toTopOf="@id/popularRecyclerView"
+                            tools:visibility="visible" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/popularRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            app:bind_load_more="@{viewmodel::loadMorePopular}"
+                            app:bind_movie_list="@{viewmodel.popularMovieList}"
+                            app:bind_view_model="@{viewmodel}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/popularText"
+                            tools:listitem="@layout/list_item_movie" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/inTheatersLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:minHeight="150dp">
+
+                        <TextView
+                            android:id="@+id/inTheatersText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/in_theaters"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/showAllInTheatersText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="@{() -> viewmodel.goToShowAllPressed(MovieListType.IN_THEATERS)}"
+                            android:text="@string/show_all"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@id/inTheatersText"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <ProgressBar
+                            android:id="@+id/inTheatersProgressBar"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="@dimen/progress_bar_size"
+                            android:layout_height="@dimen/progress_bar_size"
+                            android:visibility="gone"
+                            app:bind_visibility_null_list="@{viewmodel.inTheatersMovieList}"
+                            app:layout_constraintBottom_toBottomOf="@id/inTheatersRecyclerView"
+                            app:layout_constraintEnd_toEndOf="@id/inTheatersRecyclerView"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@id/inTheatersRecyclerView"
+                            app:layout_constraintTop_toTopOf="@id/inTheatersRecyclerView"
+                            tools:visibility="visible" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/inTheatersRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            app:bind_load_more="@{viewmodel::loadMoreInTheaters}"
+                            app:bind_movie_list="@{viewmodel.inTheatersMovieList}"
+                            app:bind_view_model="@{viewmodel}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/inTheatersText"
+                            tools:listitem="@layout/list_item_movie" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/upcomingLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:minHeight="150dp">
+
+                        <TextView
+                            android:id="@+id/upcomingText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/upcoming"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/showAllUpcomingText"
+                            style="@style/NunitoSemiBoldStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="@{() -> viewmodel.goToShowAllPressed(MovieListType.UPCOMING)}"
+                            android:text="@string/show_all"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@id/upcomingText"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <ProgressBar
+                            android:id="@+id/upcomingProgressBar"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="@dimen/progress_bar_size"
+                            android:layout_height="@dimen/progress_bar_size"
+                            android:visibility="gone"
+                            app:bind_visibility_null_list="@{viewmodel.upcomingMovieList}"
+                            app:layout_constraintBottom_toBottomOf="@id/upcomingRecyclerView"
+                            app:layout_constraintEnd_toEndOf="@id/upcomingRecyclerView"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@id/upcomingRecyclerView"
+                            app:layout_constraintTop_toTopOf="@id/upcomingRecyclerView"
+                            tools:visibility="visible" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/upcomingRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            app:bind_load_more="@{viewmodel::loadMoreUpcoming}"
+                            app:bind_movie_list="@{viewmodel.upcomingMovieList}"
+                            app:bind_view_model="@{viewmodel}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/upcomingText"
+                            tools:listitem="@layout/list_item_movie" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".40" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

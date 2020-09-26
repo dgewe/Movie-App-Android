@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.fredrikbogg.movie_app.ui.movies.MoviesViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moviesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            app:bind_load_more="@{viewmodel::loadMoreMovies}"
+            app:bind_movie_list="@{viewmodel.movieList}"
+            app:bind_view_model="@{viewmodel}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/recyclerview_span_count"
+            tools:listitem="@layout/list_item_movie_grid" />
+
+        <ProgressBar
+            android:id="@+id/moviesProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:visibility="gone"
+            app:bind_visibility_null_list="@{viewmodel.movieList}"
+            app:layout_constraintBottom_toBottomOf="@id/moviesRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/moviesRecyclerView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/moviesRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/moviesRecyclerView"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.fredrikbogg.movie_app.ui.tv_shows.TvShowsViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tvShowsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            app:bind_load_more="@{viewmodel::loadMoreTvShows}"
+            app:bind_tv_show_list="@{viewmodel.tvShowList}"
+            app:bind_view_model="@{viewmodel}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/recyclerview_span_count"
+            tools:listitem="@layout/list_item_movie_grid" />
+
+        <ProgressBar
+            android:id="@+id/moviesProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:visibility="gone"
+            app:bind_visibility_null_list="@{viewmodel.tvShowList}"
+            app:layout_constraintBottom_toBottomOf="@id/tvShowsRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/tvShowsRecyclerView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/tvShowsRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/tvShowsRecyclerView"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

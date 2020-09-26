@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="goToInterface"
+            type="com.fredrikbogg.movie_app.data.model.GoToCast" />
+
+        <variable
+            name="cast"
+            type="com.fredrikbogg.movie_app.data.model.entity.Cast" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:clickable="true"
+        android:onClick="@{() ->goToInterface.goTo(cast)}">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="85dp"
+            android:layout_height="105dp"
+            android:contentDescription="@string/cast_image"
+            app:bind_profile_path="@{cast.profilePath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars[0]" />
+
+        <TextView
+            android:id="@+id/titleText"
+            style="@style/NunitoSemiBoldStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha=".8"
+            android:ellipsize="end"
+            android:lines="2"
+            android:paddingTop="5dp"
+            android:text="@{cast.name}"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@id/image"
+            app:layout_constraintRight_toRightOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            tools:text="Name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

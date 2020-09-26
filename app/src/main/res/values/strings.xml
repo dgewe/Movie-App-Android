@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Movie App</string>
+    <string name="title_home">Home</string>
+    <string name="title_movies">Movies</string>
+    <string name="title_tv_shows">TV Shows</string>
+    <string name="popular">Popular</string>
+    <string name="show_all">Show all</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="in_theaters">In Theaters</string>
+    <string name="movie_image">movie image</string>
+    <string name="tv_image">tv show image</string>
+    <string name="cast_image">cast image</string>
+    <string name="video">video</string>
+    <string name="videos">VIDEOS</string>
+    <string name="cast">CAST</string>
+    <string name="person_image">person image</string>
+    <string name="biography">BIOGRAPHY</string>
+    <string name="photos">PHOTOS</string>
+    <string name="known_for">KNOWN FOR</string>
+    <string name="highlighted_movie_image">highlighted movie image</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="goToInterface"
+            type="com.fredrikbogg.movie_app.data.model.GoToMovie" />
+
+        <variable
+            name="movie"
+            type="com.fredrikbogg.movie_app.data.model.entity.Movie" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:clickable="true"
+        android:onClick="@{() -> goToInterface.goTo(movie)}">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="108dp"
+            android:layout_height="162dp"
+            android:contentDescription="@string/movie_image"
+            app:bind_poster_path="@{movie.posterPath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars[0]" />
+
+        <TextView
+            android:id="@+id/titleText"
+            style="@style/NunitoSemiBoldStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha=".8"
+            android:ellipsize="end"
+            android:lines="2"
+            android:paddingTop="5dp"
+            android:text="@{movie.title}"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@id/image"
+            app:layout_constraintRight_toRightOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            tools:text="Title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
