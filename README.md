@@ -12,7 +12,7 @@ See below for more information.
 * Android, Kotlin
 * [The Movie Database](https://www.themoviedb.org/)
 * [Retrofit HTTP Client](https://square.github.io/retrofit/) 
-* [OkHttp](https://square.github.io/okhttp/) - Intercept and modify requests
+* [OkHttp](https://square.github.io/okhttp/) - Interceptor
 * [Picasso](https://square.github.io/picasso/) - Loading images, caching
 
 #### Architecture
