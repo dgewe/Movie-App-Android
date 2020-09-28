@@ -49,13 +49,6 @@ class PersonDetailsFragment : BaseFragment(true) {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val a = findNavController().backStack.size
-
-        val k = 0
-    }
-
     private fun navigateToMovieDetails(id: Int, title: String) {
         val action =
             PersonDetailsFragmentDirections.actionPersonDetailsFragmentToMovieDetailsFragment(
